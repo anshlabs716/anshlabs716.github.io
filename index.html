@@ -1,112 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#09090d">
-  <meta name="description" content="AnshLabs — independent software development, open-source projects and experiments by Ansh.">
-  <title>AnshLabs — Building beyond ordinary</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{color-scheme:dark;--bg:#09090d;--panel:#121219;--line:#292934;--text:#f5f5f7;--muted:#a1a1ad;--purple:#c4b5fd;--blue:#93c5fd}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
-    body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 12% 8%,#7548e52a,transparent 32%),radial-gradient(ellipse at 88% 24%,#2563eb1b,transparent 32%)}
-    a{color:inherit;text-decoration:none}.shell{width:min(1100px,calc(100% - 48px));margin:auto}
-    header{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}
-    .brand{font:700 22px "Space Grotesk",sans-serif;letter-spacing:-1.1px}.brand span{color:var(--purple)}
-    nav{display:flex;gap:30px;color:var(--muted);font-size:13px}nav a:hover,.text-link:hover{color:white}
-    .github{border:1px solid #383844;padding:10px 15px;border-radius:10px;font-size:13px;transition:.2s}.github:hover{border-color:var(--purple);background:#c4b5fd12}
-    .hero{padding:116px 0 95px;position:relative}.eyebrow{display:flex;align-items:center;gap:9px;color:var(--purple);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
-    .pulse{width:7px;height:7px;border-radius:50%;background:#a78bfa;box-shadow:0 0 13px #a78bfa}
-    h1{font:700 clamp(54px,9vw,100px)/.99 "Space Grotesk",sans-serif;letter-spacing:-6px;margin:27px 0;max-width:900px}
-    .gradient{background:linear-gradient(105deg,#e9d5ff,#a78bfa 48%,#60a5fa);color:transparent;background-clip:text;-webkit-background-clip:text}
-    .intro{max-width:540px;color:var(--muted);font-size:16px;line-height:1.85}.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-    .button{display:inline-flex;align-items:center;gap:8px;padding:13px 19px;border-radius:10px;font-size:13px;font-weight:700;transition:.2s}.button:hover{transform:translateY(-2px)}
-    .primary{background:var(--purple);color:#111018}.secondary{border:1px solid #383844}
-    section{padding:54px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:25px}
-    h2{font:600 30px "Space Grotesk",sans-serif;letter-spacing:-1.4px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:8px}.section-no{font-size:10px;letter-spacing:2px;color:var(--purple)}
-    .projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-    .project{position:relative;min-height:224px;padding:25px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#17171f,#101015);display:flex;flex-direction:column;overflow:hidden;transition:transform .22s,border-color .22s}
-    .project:after{content:"";position:absolute;width:150px;height:150px;right:-90px;top:-90px;border-radius:50%;background:#a78bfa16;filter:blur(3px);pointer-events:none}
-    .project:hover{transform:translateY(-4px);border-color:#8170b6}
-    .meta{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#a78bfa;font-size:10px;letter-spacing:1.4px;text-transform:uppercase}
-    .status{border:1px solid #4c4564;border-radius:99px;padding:5px 8px;color:#d8ccff;font-size:9px;letter-spacing:.7px;white-space:nowrap}
-    .status.building{color:#fcd7a1;border-color:#665039;background:#f59e0b0b}
-    .project h3{font:600 25px "Space Grotesk",sans-serif;margin:22px 0 8px;letter-spacing:-.7px}
-    .project p{font-size:13px;line-height:1.75;color:var(--muted);margin:0 0 18px;max-width:460px}
-    .project-link{font-size:12px;color:var(--purple);margin-top:auto;display:inline-flex;gap:7px;align-items:center;width:max-content}.project-link:hover{color:white}
-    .about-card{border:1px solid var(--line);border-radius:17px;background:#121219d9;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
-    .about-card h2{font-size:29px}.about-card p{color:var(--muted);font-size:13px;line-height:1.9}
-    .values{display:grid;grid-template-columns:1fr 1fr;gap:10px}.value{padding:16px;border:1px solid var(--line);border-radius:11px;color:#dedee6;font-size:12px}.value b{display:block;color:var(--purple);font-size:19px;margin-bottom:9px}
-    footer{margin-top:45px;border-top:1px solid var(--line);padding:24px 0 34px;display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:11px}
-    @media(max-width:650px){.shell{width:calc(100% - 38px)}header{height:70px}nav{display:none}.hero{padding:85px 0 65px}h1{letter-spacing:-3.5px}.projects,.about-card{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}section{padding:40px 0}.about-card{padding:23px}footer{flex-direction:column}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#09090d;color:#f5f5f7;font-family:'DM Sans',sans-serif}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:auto;padding:0 26px}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}
+.logo{font:700 22px 'Space Grotesk';letter-spacing:-1px}.logo span{color:#a78bfa}
+nav{display:flex;gap:28px;color:#a1a1aa;font-size:13px}
+nav a:hover{color:white}
+.github{border:1px solid #34343e;padding:10px 15px;border-radius:9px;font-size:13px}
+.hero{padding:115px 0 100px;position:relative}
+.hero:after{content:"";position:absolute;z-index:0;width:430px;height:430px;right:2%;top:25px;background:radial-gradient(circle,#7548e52c,transparent 70%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c4b5fd;font-weight:700}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#a78bfa;margin-right:9px;box-shadow:0 0 12px #a78bfa}
+h1{font:700 clamp(54px,9vw,100px)/.99 'Space Grotesk';letter-spacing:-6px;margin:26px 0;max-width:850px}
+.gradient{background:linear-gradient(100deg,#d8b4fe,#818cf8,#60a5fa);color:transparent;background-clip:text}
+.lead{font-size:16px;color:#a1a1aa;line-height:1.8;max-width:520px}
+.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{padding:13px 19px;border-radius:9px;font-weight:700;font-size:13px;display:inline-block;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:#c4b5fd;color:#111}
+.secondary{border:1px solid #34343e}
+section{padding:55px 0}
+.heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}
+h2{font:600 30px 'Space Grotesk';letter-spacing:-1.5px;margin:0}
+.sub{color:#92929e;font-size:13px;margin-top:8px}
+.number{font-size:11px;color:#a78bfa;letter-spacing:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.project{border:1px solid #292932;border-radius:15px;padding:25px;background:linear-gradient(145deg,#17171e,#101014);min-height:210px;transition:.22s;display:flex;flex-direction:column}
+.project:hover{transform:translateY(-4px);border-color:#8170b6}
+.project small{color:#a78bfa;letter-spacing:1.5px;font-size:10px}
+.project h3{font:600 25px 'Space Grotesk';margin:22px 0 7px}
+.project p{font-size:13px;color:#a1a1aa;line-height:1.7;margin:0 0 16px}
+.project a,.status{margin-top:auto;font-size:12px;color:#c4b5fd}
+.status{color:#92929e}
+.about{border:1px solid #292932;border-radius:16px;background:#121218;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.about p{font-size:13px;color:#a1a1aa;line-height:1.9}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.value{border:1px solid #292932;border-radius:10px;padding:17px;font-size:12px;color:#ddd}
+.value b{display:block;color:#c4b5fd;font-size:20px;margin-bottom:10px}
+footer{border-top:1px solid #292932;padding:25px 0 35px;color:#92929e;font-size:11px;display:flex;justify-content:space-between;gap:15px}
+@media(max-width:650px){.wrap{padding:0 19px}nav{display:none}.hero{padding:85px 0 70px}h1{letter-spacing:-3.5px}.grid,.about{grid-template-columns:1fr}.heading{align-items:start;gap:15px;flex-direction:column}section{padding:40px 0}footer{flex-direction:column}}
+</style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <a class="brand" href="#" aria-label="AnshLabs home">Ansh<span>Labs.</span></a>
-      <nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a></nav>
-      <a class="github" href="https://github.com/anshlabs716" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-    </header>
-    <main>
-      <section class="hero">
-        <div class="eyebrow"><span class="pulse"></span>Independent development studio</div>
-        <h1>Building software.<br><span class="gradient">Beyond ordinary.</span></h1>
-        <p class="intro">Exploring ideas, creating useful tools, and building open-source software. AnshLabs is where curiosity turns into things people can actually use.</p>
-        <div class="actions">
-          <a class="button primary" href="#projects">Explore projects <span>↗</span></a>
-          <a class="button secondary" href="https://github.com/anshlabs716" target="_blank" rel="noopener noreferrer">View GitHub</a>
-        </div>
-      </section>
-
-      <section id="projects">
-        <div class="section-head"><div><h2>Selected projects.</h2><div class="sub">A few things I'm building and maintaining.</div></div><span class="section-no">01 / PROJECTS</span></div>
-        <div class="projects">
-          <article class="project">
-            <div class="meta"><span>01 — Android · Health</span><span class="status">Published</span></div>
-            <h3>MILES</h3>
-            <p>A privacy-focused activity tracker designed to make everyday movement easier to understand.</p>
-            <a class="project-link" href="https://github.com/anshlabs716/miles" target="_blank" rel="noopener noreferrer">Explore repository ↗</a>
-          </article>
-          <article class="project">
-            <div class="meta"><span>02 — Android · Weather</span><span class="status building">In development</span></div>
-            <h3>Atmos</h3>
-            <p>Weather, beautifully understood. A modern weather experience built around clarity, useful detail and expressive design.</p>
-            <a class="project-link" href="https://github.com/anshlabs716" target="_blank" rel="noopener noreferrer">More on GitHub ↗</a>
-          </article>
-          <article class="project">
-            <div class="meta"><span>03 — Android · Navigation</span><span class="status building">In progress</span></div>
-            <h3>KinNav</h3>
-            <p>A privacy-first navigation platform combining GeoNav's maps and navigation with opt-in location sharing.</p>
-            <a class="project-link" href="https://github.com/anshlabs716/kinnav" target="_blank" rel="noopener noreferrer">Explore repository ↗</a>
-          </article>
-          <article class="project">
-            <div class="meta"><span>04 — Android · System</span><span class="status">Available</span></div>
-            <h3>Systemless DeGoogler</h3>
-            <p>A systemless Android module for removing selected Google and OEM apps, with carefully chosen open-source alternatives.</p>
-            <a class="project-link" href="https://github.com/anshlabs716/Systemless-degoogler-next" target="_blank" rel="noopener noreferrer">Explore repository ↗</a>
-            <a class="project-link" href="https://github.com/anshlabs716/Systemless-degoogler-next/releases" target="_blank" rel="noopener noreferrer">View releases ↗</a>
-          </article>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="about-card">
-          <div><h2>Small ideas.<br>Big possibilities.</h2><p>AnshLabs is an independent development space for software, experiments and open-source contributions. The goal: make useful technology that respects its users and feels great to use.</p></div>
-          <div class="values">
-            <div class="value"><b>✳</b>Open source</div>
-            <div class="value"><b>⌘</b>Privacy minded</div>
-            <div class="value"><b>◈</b>Thoughtful design</div>
-            <div class="value"><b>↗</b>Always learning</div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer><span>© 2026 AnshLabs</span><span>Built with curiosity. Powered by open source.</span></footer>
-  </div>
+<div class="wrap">
+<header>
+<a class="logo" href="#">Ansh<span>Labs.</span></a>
+<nav><a href="#projects">Projects</a><a href="#about">About</a></nav>
+<a class="github" href="https://github.com/anshlabs716" target="_blank">GitHub ↗</a>
+</header>
+<main>
+<div class="hero">
+<div class="eyebrow"><span class="dot"></span>Independent development studio</div>
+<h1>Building software.<br><span class="gradient">Beyond ordinary.</span></h1>
+<p class="lead">Exploring ideas, creating useful tools, and building open-source software. Welcome to AnshLabs — where curiosity becomes code.</p>
+<div class="actions">
+<a class="btn primary" href="#projects">Explore projects ↗</a>
+<a class="btn secondary" href="https://github.com/anshlabs716" target="_blank">View GitHub</a>
+</div>
+</div>
+<section id="projects">
+<div class="heading"><div><h2>Selected projects.</h2><div class="sub">Things I'm building and experimenting with.</div></div><span class="number">01 / PROJECTS</span></div>
+<div class="grid">
+<article class="project"><small>01 — ANDROID</small><h3>MILES</h3><p>A privacy-focused activity tracker built to make everyday movement easier to understand.</p><a href="https://github.com/anshlabs716/miles" target="_blank">Explore repository ↗</a></article>
+<article class="project"><small>02 — WEATHER</small><h3>Atmos</h3><p>Weather, beautifully understood. A modern weather experience with a focus on clarity and design.</p><span class="status">In development</span></article>
+<article class="project"><small>03 — ANDROID · NAVIGATION</small><h3>KinNav</h3><p>A privacy-first navigation platform combining GeoNav's maps and navigation with Luogo's opt-in location sharing.</p><a href="https://github.com/anshlabs716/kinnav" target="_blank">Explore repository ↗</a></article>
+<article class="project"><small>04 — ANDROID · SYSTEM</small><h3>Systemless DeGoogler</h3><p>A systemless Android module for removing selected Google and OEM apps, with open-source alternatives.</p><a href="https://github.com/anshlabs716/Systemless-degoogler-next" target="_blank">Explore repository ↗</a></article>
+</div>
+</section>
+<section id="about">
+<div class="about">
+<div><h2>Small ideas.<br>Big possibilities.</h2><p>AnshLabs is my independent development space for building software, experimenting with technology and contributing to open source. I believe useful software should be thoughtful, accessible and built with purpose.</p></div>
+<div class="values">
+<div class="value"><b>✳</b>Open source</div>
+<div class="value"><b>⌘</b>Privacy minded</div>
+<div class="value"><b>◈</b>Thoughtful design</div>
+<div class="value"><b>↗</b>Constant learning</div>
+</div>
+</div>
+</section>
+</main>
+<footer><span>© 2026 AnshLabs</span><span>Built with curiosity. Powered by open source.</span></footer>
+</div>
 </body>
 </html>
