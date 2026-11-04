@@ -1,37 +1,26 @@
 # AnshLabs
 
-The personal website for **AnshLabs** — an independent development space for open-source software, Android projects, and experiments.
+The personal website for AnshLabs, featuring all public repositories and a searchable file-by-file index.
 
-🌐 **Website:** https://anshlabs716.github.io  
-💻 **GitHub:** https://github.com/anshlabs716
+- **Website:** https://anshlabs716.github.io
+- **GitHub:** https://github.com/anshlabs716
+- **Complete file index:** https://anshlabs716.github.io/files.html
 
-## Featured projects
-
-| Project | Description | Repository |
-|---|---|---|
-| **MILES** | A privacy-focused activity tracker. | [anshlabs716/miles](https://github.com/anshlabs716/miles) |
-| **Atmos** | A modern weather app focused on clarity and thoughtful design. | In development |
-| **KinNav** | A privacy-first navigation platform combining maps and opt-in location sharing. | [anshlabs716/kinnav](https://github.com/anshlabs716/kinnav) |
-| **Systemless DeGoogler** | A systemless Android module for removing selected Google and OEM apps, with open-source alternatives. | [Repository](https://github.com/anshlabs716/Systemless-degoogler-next) · [Releases](https://github.com/anshlabs716/Systemless-degoogler-next/releases) |
-
-## About the site
-
-A responsive, dark-themed portfolio built with plain HTML and CSS. It uses DM Sans and Space Grotesk typography, with no frontend framework or build step.
+The repository shelf lists all 19 public repositories. The file index includes every tracked file in those repositories, including dotfiles, Markdown, source, documentation, and assets. Its `files.json` manifest is generated from each public repository's default-branch Git tree.
 
 ## Run locally
 
-Clone the repository and open `index.html` in a browser:
+Serve this directory over HTTP (the file index fetches `files.json`):
 
 ```bash
-git clone https://github.com/anshlabs716/anshlabs716.github.io.git
-cd anshlabs716.github.io
+python3 -m http.server 8000
 ```
 
-You can also serve the folder with any static HTTP server.
+Then open http://localhost:8000.
 
 ## Deployment
 
-This site is published with GitHub Pages from the `main` branch, using the repository root.
+GitHub Pages publishes the `main` branch from the repository root.
 
 ## License
 

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101116">
+  <meta name="description" content="Search and browse every tracked file in AnshLabs716's public GitHub repositories.">
+  <title>Repository file index — AnshLabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="index.html" aria-label="AnshLabs home">Ansh<span>Labs</span><i>.</i></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="files.html" aria-current="page">File index</a>
+        <a href="index.html#about">About</a>
+      </nav>
+      <a class="header-link" href="https://github.com/anshlabs716" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main class="file-page">
+      <p class="eyebrow">THE WHOLE WORKBENCH</p>
+      <h1>Every file.<br><span class="gradient-text">Every repo.</span></h1>
+      <p class="file-lede">Browse the tracked files in all of my public repositories, including source, Markdown, dotfiles, documentation, and assets. Each entry opens its file on GitHub.</p>
+      <div class="file-toolbar">
+        <div class="project-tools">
+          <label class="sr-only" for="file-search">Search repositories and file paths</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="file-search" type="search" placeholder="Search files or repositories…" autocomplete="off">
+          <span class="result-count" id="file-count" aria-live="polite">Loading index…</span>
+        </div>
+        <span class="file-total" id="file-total"></span>
+      </div>
+      <p class="file-error" id="file-error" role="status" hidden></p>
+      <div class="file-repositories" id="file-repositories"></div>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark" href="index.html">Ansh<span>Labs</span><i>.</i></a>
+      <span>File inventory generated from public GitHub repository trees.</span>
+      <a href="index.html#projects">Back to all projects <span aria-hidden="true">↗</span></a>
+    </footer>
+  </div>
+  <script>
+    const search = document.querySelector("#file-search");
+    const count = document.querySelector("#file-count");
+    const total = document.querySelector("#file-total");
+    const container = document.querySelector("#file-repositories");
+    const error = document.querySelector("#file-error");
+    let allFiles = 0;
+
+    function renderRepositories(repositories) {
+      container.replaceChildren();
+      allFiles = 0;
+
+      for (const repository of repositories) {
+        const details = document.createElement("details");
+        details.className = "file-repository";
+        details.dataset.repository = repository.name.toLowerCase();
+
+        const summary = document.createElement("summary");
+        const name = document.createElement("strong");
+        const fileCount = document.createElement("span");
+        name.textContent = repository.name;
+        fileCount.textContent = `${repository.files.length} files`;
+        summary.append(name, fileCount);
+
+        const list = document.createElement("ul");
+        list.className = "file-paths";
+        for (const file of repository.files) {
+          const item = document.createElement("li");
+          item.dataset.path = file.path.toLowerCase();
+          const link = document.createElement("a");
+          const route = file.type === "commit" ? "tree" : "blob";
+          const branch = repository.branch.split("/").map(encodeURIComponent).join("/");
+          const path = file.path.split("/").map(encodeURIComponent).join("/");
+          link.href = `https://github.com/${repository.fullName}/${route}/${branch}/${path}`;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = file.path;
+          item.append(link);
+          list.append(item);
+        }
+
+        details.append(summary, list);
+        container.append(details);
+        allFiles += repository.files.length;
+      }
+      total.textContent = `${allFiles.toLocaleString()} files · ${repositories.length} repositories`;
+      filterFiles();
+    }
+
+    function filterFiles() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      for (const repository of container.children) {
+        const repositoryMatches = repository.dataset.repository.includes(query);
+        let visibleInRepository = 0;
+        for (const item of repository.querySelectorAll(".file-paths li")) {
+          const matches = !query || repositoryMatches || item.dataset.path.includes(query);
+          item.hidden = !matches;
+          if (matches) visibleInRepository += 1;
+        }
+        repository.hidden = visibleInRepository === 0;
+        if (query && visibleInRepository) repository.open = true;
+        if (!query) repository.open = false;
+        visible += visibleInRepository;
+      }
+      count.textContent = query
+        ? `${visible.toLocaleString()} matching files`
+        : `${allFiles.toLocaleString()} tracked files`;
+    }
+
+    search.addEventListener("input", filterFiles);
+
+    fetch("./files.json")
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(renderRepositories)
+      .catch(cause => {
+        console.error("Could not load the repository file index:", cause);
+        error.hidden = false;
+        error.textContent = "The file index could not be loaded. Please try again later or view the repositories directly on GitHub.";
+        count.textContent = "Index unavailable";
+      });
+  </script>
+</body>
+</html>
