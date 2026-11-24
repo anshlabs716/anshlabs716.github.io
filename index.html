@@ -112,22 +112,38 @@
       top.className = "card-top";
       const kind = document.createElement("span");
       kind.className = "project-kind";
-      kind.textContent = [repo.language || "OPEN SOURCE", repo.fork ? "FORK" : "ORIGINAL"].join(" · ").toUpperCase();
+      const name = repo.name.toLowerCase();
+      const originOverrides = {
+        "8vert-enhanced": "FORK",
+        "shozanthebozan": "DERIVATIVE",
+        "weather doge-modern": "DERIVATIVE",
+        "droid-lite": "BASED ON"
+      };
+      const origin = originOverrides[name] || (repo.fork ? "FORK" : "ORIGINAL");
+      kind.textContent = [repo.language || "PROJECT", origin].join(" · ").toUpperCase();
       top.append(kind);
-      if (repo.fork || repo.archived) {
+      if (origin !== "ORIGINAL" || repo.archived) {
         const mark = document.createElement("span");
         mark.className = "repo-mark";
-        mark.textContent = repo.archived ? "ARCHIVED" : "FORK";
+        mark.textContent = repo.archived ? "ARCHIVED" : origin;
         top.append(mark);
       }
       const title = document.createElement("h3");
       title.textContent = repo.name;
+      const statusByRepo = {
+        "syskit": "BETA",
+        "miles": "RELEASED",
+        "miles-wearos": "ACTIVE DEVELOPMENT",
+        "kinnav": "EARLY DEVELOPMENT",
+        "atmos": "IN DEVELOPMENT",
+        "project-color-raven": "IN DEVELOPMENT",
+        "systemless-degoogler-next": "RELEASED",
+        "microg-flasher": "RELEASED"
+      };
       const status = document.createElement("span");
       status.className = "status-tag";
-      const betaNames = ["syskit"];
-      const activeNames = ["kinnav", "atmos", "project-color-raven"];
-      status.textContent = betaNames.includes(repo.name.toLowerCase()) ? "BETA" : activeNames.includes(repo.name.toLowerCase()) ? "IN DEVELOPMENT" : repo.archived ? "ARCHIVED" : repo.fork ? "FORK" : "OPEN SOURCE";
-      status.dataset.status = status.textContent.toLowerCase().replaceAll(" ", "-");
+      status.textContent = repo.archived ? "ARCHIVED" : (statusByRepo[name] || "");
+      if (status.textContent) status.dataset.status = status.textContent.toLowerCase().replaceAll(" ", "-");
       const description = document.createElement("p");
       description.textContent = repo.description || "An open-source project and experiment by Ansh.";
       const bottom = document.createElement("div");
