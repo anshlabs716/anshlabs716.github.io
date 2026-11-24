@@ -138,12 +138,16 @@
         "atmos": "IN DEVELOPMENT",
         "project-color-raven": "IN DEVELOPMENT",
         "systemless-degoogler-next": "RELEASED",
-        "microg-flasher": "RELEASED"
+        "microg-flasher": "BETA"
       };
       const status = document.createElement("span");
       status.className = "status-tag";
       status.textContent = repo.archived ? "ARCHIVED" : (statusByRepo[name] || "");
-      if (status.textContent) status.dataset.status = status.textContent.toLowerCase().replaceAll(" ", "-");
+      if (status.textContent) {
+        status.dataset.status = status.textContent === "BETA" ? "beta" :
+          status.textContent.includes("DEVELOPMENT") ? "in-development" :
+          status.textContent.toLowerCase().replaceAll(" ", "-");
+      }
       const description = document.createElement("p");
       description.textContent = repo.description || "An open-source project and experiment by Ansh.";
       const bottom = document.createElement("div");
