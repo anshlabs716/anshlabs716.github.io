@@ -124,8 +124,8 @@
       title.textContent = repo.name;
       const status = document.createElement("span");
       status.className = "status-tag";
-      const betaNames = ["kinnav", "atmos"];
-      const activeNames = ["project-color-raven", "syskit", "microg-flasher", "systemless-degoogler-next"];
+      const betaNames = ["syskit"];
+      const activeNames = ["kinnav", "atmos", "project-color-raven"];
       status.textContent = betaNames.includes(repo.name.toLowerCase()) ? "BETA" : activeNames.includes(repo.name.toLowerCase()) ? "IN DEVELOPMENT" : repo.archived ? "ARCHIVED" : repo.fork ? "FORK" : "OPEN SOURCE";
       status.dataset.status = status.textContent.toLowerCase().replaceAll(" ", "-");
       const description = document.createElement("p");
