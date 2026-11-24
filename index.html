@@ -116,7 +116,7 @@
       const originOverrides = {
         "8vert-enhanced": "FORK",
         "shozanthebozan": "DERIVATIVE",
-        "weather doge-modern": "DERIVATIVE",
+        "weatherdoge-modern": "DERIVATIVE",
         "droid-lite": "BASED ON"
       };
       const origin = originOverrides[name] || (repo.fork ? "FORK" : "ORIGINAL");
@@ -161,7 +161,8 @@
       arrow.textContent = "↗";
       link.append(arrow);
       bottom.append(language, link);
-      card.append(top, title, status, description, bottom);
+      if (status.textContent) card.append(top, title, status, description, bottom);
+      else card.append(top, title, description, bottom);
       return card;
     }
 
