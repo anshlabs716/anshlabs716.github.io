@@ -113,13 +113,8 @@
       const kind = document.createElement("span");
       kind.className = "project-kind";
       const name = repo.name.toLowerCase();
-      const originOverrides = {
-        "8vert-enhanced": "FORK",
-        "shozanthebozan": "DERIVATIVE",
-        "weatherdoge-modern": "DERIVATIVE",
-        "droid-lite": "BASED ON"
-      };
-      const origin = originOverrides[name] || (repo.fork ? "FORK" : "ORIGINAL");
+      // GitHub's repository API is the source of truth for fork status.
+      const origin = repo.fork ? "FORK" : "ORIGINAL";
       kind.textContent = [repo.language || "PROJECT", origin].join(" · ").toUpperCase();
       top.append(kind);
       if (origin !== "ORIGINAL" || repo.archived) {
@@ -131,14 +126,14 @@
       const title = document.createElement("h3");
       title.textContent = repo.name;
       const statusByRepo = {
-        "syskit": "BETA",
+        "iso-flasher": "BETA",
+        "microg-flasher": "BETA",
         "miles": "RELEASED",
-        "miles-wearos": "ACTIVE DEVELOPMENT",
-        "kinnav": "EARLY DEVELOPMENT",
-        "atmos": "IN DEVELOPMENT",
-        "project-color-raven": "IN DEVELOPMENT",
+        "miles-wearos": "RELEASED",
         "systemless-degoogler-next": "RELEASED",
-        "microg-flasher": "BETA"
+        "atmos": "IN DEVELOPMENT",
+        "kinnav": "IN DEVELOPMENT",
+        "project-color-raven": "IN DEVELOPMENT"
       };
       const status = document.createElement("span");
       status.className = "status-tag";
