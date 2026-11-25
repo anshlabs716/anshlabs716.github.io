@@ -189,7 +189,9 @@
       }
       projectGrid.append(fragment);
       repoTotal.textContent = repositories.length;
-      projectCount.textContent = query ? visible + " of " + repositories.length + " repositories" : repositories.length + " public repositories";
+      projectCount.textContent = query || activeFilter !== "all"
+        ? visible + " of " + repositories.length + " repositories"
+        : repositories.length + " public repositories";
       noProjects.hidden = visible !== 0;
     }
 

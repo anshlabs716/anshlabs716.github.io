@@ -297,7 +297,7 @@ body{background:radial-gradient(ellipse at 12% 4%,#7355c52b,transparent 34rem),r
 .site-nav svg,.header-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .header-link{display:inline-flex;align-items:center;gap:9px;border-color:#ffffff20;border-radius:999px;padding:10px 15px;background:linear-gradient(135deg,#b9a0ff20,#8ce6d110)}
 .hero{position:relative;min-height:510px;grid-template-columns:minmax(0,1fr) 310px;gap:70px;padding:94px 0 80px}
-.hero:before{content:"";position:absolute;z-index:-1;width:470px;height:470px;left:34%;top:5%;border-radius:50%;background:radial-gradient(circle,#9374ff14,transparent 68%);filter:blur(12px)}
+.hero:before{content:"";position:absolute;z-index:-1;width:470px;height:470px;left:min(34%,calc(100% - 470px));top:5%;border-radius:50%;background:radial-gradient(circle,#9374ff14,transparent 68%);filter:blur(12px)}
 .hero h1{font-size:clamp(58px,8.4vw,96px);line-height:.96}.hero-lede{max-width:590px;font-size:16px;line-height:1.9}
 .eyebrow{display:flex;align-items:center;gap:8px;letter-spacing:1.5px}.eyebrow-divider{color:#58627a}
 .live-pill{margin-left:6px;padding:4px 8px;border:1px solid #8ce6d133;border-radius:999px;color:var(--mint);font-size:8px;letter-spacing:1px}
